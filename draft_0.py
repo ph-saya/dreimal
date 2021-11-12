@@ -2,6 +2,7 @@ import random
 
 from enum import Enum
 
+from die import Die
 from dice_list import DiceList
 from player import Player, ACTIONS
 
@@ -164,24 +165,6 @@ class Game:
         # Increment the active player
         self.active_player_number += 1
         self.active_player = self.player_order[self.active_player_number % len(self.player_order)]  
-
-class Die:
-    def __init__(self, color, number=None):
-		# TODO validate color
-		self.color = color
-		self.number = random.randint(1,7) if number is None else number
-        
-	def get_number(self):
-        return self.number
-  
-    def get_color(self):
-        return self.color
-  
-    def __repr__(self):
-        return f"{self.color}: {self.number}"
-  
-    def __str__(self):
-        return f"{self.color}: {self.number}"
 
 if __name__ == "__main__":
     paul = Player('Paul')
