@@ -4,7 +4,6 @@ import random
 from enum import Enum
 
 from dice_list import DiceList
-from player import Player
 
 COLORS = Enum("colors", "pink green yellow blue white black")
 
@@ -37,9 +36,10 @@ class Game:
         self.is_over = False
 
         # run chwazi = generate ordered list
-        self.player_order = random.shuffle(player_list)
+        random.shuffle(player_list)
+        self.player_order = player_list
         print(
-            f"Order of player is: {[get_name(player) for player in self.player_order]}"
+            f"Order of player is: {[player.get_name() for player in self.player_order]}"
         )
 
         self.active_player_number = 0
@@ -50,10 +50,12 @@ class Game:
         self.selected_die_list = DiceList()
         self.field = DiceList()
 
-    def is_over(self):
+    def get_is_over(self):
+        """Return whether the game has concluded"""
         return self.is_over
 
     def reroll_check(self, active_player):
+        """Verify whether a reroll should be performed"""
         while get_reroll_count(active_player) > 0:
             print(
                 f"{get_name(active_player)} you have {get_reroll_count(active_player)} rerolls left"
@@ -70,6 +72,7 @@ class Game:
                 pass
 
     def putback_check(self, active_player):
+        """Verify whether a die should be put back into the field"""
         while get_putback_count(active_player) > 0 and len(get_list(self.platter)) > 0:
             print(
                 f"{get_name(active_player)} you have {get_putback_count(active_player)} putbacks left"
@@ -97,6 +100,7 @@ class Game:
                 pass
 
     def plus_one_check(self, player):
+        """Verify whether a die should be counted again"""
         while get_plus_one_count(active_player) > 0:
             print(
                 f"{get_name(active_player)} you have {get_plus_one_count(active_player)} +1s left."
