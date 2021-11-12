@@ -10,10 +10,11 @@ class Board:
         self.blue_list = []
         #TODO: add others
     
+    # Equivalent to marking on the scoring sheet
     def add_to_list(self, die):
-        if (get_color(die) == COLORS.pink)
+        if (get_color(die) == COLORS.pink):
             self.pink_list.append(die)
-        elif (get_color(die) == COLORS.blue)
+        elif (get_color(die) == COLORS.blue):
             self.blue_list.append(die)
             
         
@@ -45,9 +46,26 @@ class Player:
     def add_black_score(self, die):
         raise NotImplemented
     def add_blue_score(self, die):
-        add_to_list(self.board, die)
-        
-        blue_index = len(self.board.blue_list)
+        add_to_list(self.board, die) #"mark" on scoring sheet
+        blue_index = len(self.board.blue_list) #includes new input
+        self.score += blue_index
+        if (blue_index == 2) or (blue_index == 10):
+            self.putback_count += 1
+        elif (blue_index == 3):
+            yellow_die_value = input("select yellow die value between 1-6")
+            add_yellow_score(self, Die(COLORS.yellow,int(yellow_die_value)))
+        elif (blue_index == 5)
+            self.plus_one_count += 1
+        elif (blue_index == 6)
+            self.reroll_count += 1
+        elif (blue_index == 7)
+            pink_die_value = input("select pink die value between 1-6")
+            add_pink_score(self, Die(COLORS.pink,int(pink_die_value)))
+        elif (blue_index == 9)
+            self.fox_count += 1
+        elif (blue_index == 12):
+            green_die_value = input("select green die value between 1-6")
+            add_green_score(self, Die(COLORS.green,int(green_die_value)))
     
     def add_pink_score(self, die):
         add_to_list(self.board, die)
