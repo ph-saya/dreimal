@@ -1,10 +1,10 @@
+"""Representation of a game"""
 import random
 
 from enum import Enum
 
-from die import Die
 from dice_list import DiceList
-from player import Player, ACTIONS
+from player import Player
 
 COLORS = Enum("colors", "pink green yellow blue white black")
 
@@ -27,15 +27,17 @@ class Board:
 
 
 class Game:
-    def __init(self, playerList):
-        if len(playerList) > 4 or len(playerList) < 1:
+    """Representation of a game"""
+
+    def __init__(self, player_list):
+        if len(player_list) > 4 or len(player_list) < 1:
             raise Exception(
-                f"Player count is wrong! {len(playerList)} players were input. Please input between 1 and 4 players."
+                f"Player count is wrong! {len(player_list)} players were input. Please input between 1 and 4 players."
             )
         self.is_over = False
 
         # run chwazi = generate ordered list
-        self.player_order = random.shuffle(playerList)
+        self.player_order = random.shuffle(player_list)
         print(
             f"Order of player is: {[get_name(player) for player in self.player_order]}"
         )
@@ -186,11 +188,12 @@ class Game:
 
 
 if __name__ == "__main__":
-    paul = Player("Paul")
-    nayeon = Player("Nayeon")
-    game = Game([paul, nayeon])
-    while not is_over(game):
-        game.is_over = True
+    print("Begin game")
+    # paul = Player("Paul")
+    # nayeon = Player("Nayeon")
+    # game = Game([paul, nayeon])
+    # while not is_over(game):
+    #    game.is_over = True
 #  next_action(game)
 # a_single_roll_of_all_colors = DiceList([list(COLORS)])
 # reroll_pink = DiceList([COLORS.pink])
