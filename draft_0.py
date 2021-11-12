@@ -8,31 +8,37 @@ from player import Player, ACTIONS
 
 COLORS = Enum("colors", "pink green yellow blue white black")
 
+
 class Board:
     def __init__(self):
         self.pink_list = []
         self.blue_list = []
         self.green_list = []
-        #TODO: add others
-    
+        # TODO: add others
+
     # Equivalent to marking on the scoring sheet (die value for now)
     def add_to_list(self, die):
-        if (get_color(die) == COLORS.pink):
+        if get_color(die) == COLORS.pink:
             self.pink_list.append(get_number(die))
-        elif (get_color(die) == COLORS.blue):
+        elif get_color(die) == COLORS.blue:
             self.blue_list.append(die)
-        elif (get_color(die) == COLORS.green):
+        elif get_color(die) == COLORS.green:
             self.green_list.append(die)
-        
+
+
 class Game:
     def __init(self, playerList):
-        if len(playerList) > 4 or len(playerList) < 1:     
-            raise Exception(f"Player count is wrong! {len(playerList)} players were input. Please input between 1 and 4 players.")
-        self.is_over = False   
+        if len(playerList) > 4 or len(playerList) < 1:
+            raise Exception(
+                f"Player count is wrong! {len(playerList)} players were input. Please input between 1 and 4 players."
+            )
+        self.is_over = False
 
-        #run chwazi = generate ordered list
-        self.player_order = random.shuffle(playerList) 
-        print(f"Order of player is: {[get_name(player) for player in self.player_order]}")
+        # run chwazi = generate ordered list
+        self.player_order = random.shuffle(playerList)
+        print(
+            f"Order of player is: {[get_name(player) for player in self.player_order]}"
+        )
 
         self.active_player_number = 0
         self.active_player = self.player_order[self.active_player_number]
@@ -41,29 +47,33 @@ class Game:
         self.platter = DiceList()
         self.selected_die_list = DiceList()
         self.field = DiceList()
-    
+
     def is_over(self):
         return self.is_over
-  
+
     def reroll_check(self, active_player):
         while get_reroll_count(active_player) > 0:
-            print(f"{get_name(active_player)} you have {get_reroll_count(active_player)} rerolls left")
+            print(
+                f"{get_name(active_player)} you have {get_reroll_count(active_player)} rerolls left"
+            )
             player_reroll = input("Want to reroll? y/n")
-            if player_reroll == 'y':
+            if player_reroll == "y":
                 active_player.reroll_count -= 1
                 reroll = dielist(get_colors(self.field))
                 self.field = reroll
                 print(self.field)
-            elif player_reroll == 'n':
+            elif player_reroll == "n":
                 break
             else:
                 pass
 
     def putback_check(self, active_player):
         while get_putback_count(active_player) > 0 and len(get_list(self.platter)) > 0:
-            print(f"{get_name(active_player)} you have {get_putback_count(active_player)} putbacks left")
+            print(
+                f"{get_name(active_player)} you have {get_putback_count(active_player)} putbacks left"
+            )
             player_putback = input("Want to putback? y/n")
-            if player_putback == 'y':
+            if player_putback == "y":
                 active_player.putback_count -= 1
                 # player selects which die to putback from platter
                 # select die
@@ -79,16 +89,18 @@ class Game:
                         has_selected = True
                     else:
                         continue
-            elif player_putback == 'n':
+            elif player_putback == "n":
                 break
             else:
                 pass
-  
+
     def plus_one_check(self, player):
         while get_plus_one_count(active_player) > 0:
-            print(f"{get_name(active_player)} you have {get_plus_one_count(active_player)} +1s left.")
+            print(
+                f"{get_name(active_player)} you have {get_plus_one_count(active_player)} +1s left."
+            )
             player_plus_one = input("Do you want to use a +1? y/n")
-            if player_plust_one == 'y':
+            if player_plust_one == "y":
                 active_player.plus_one_count -= 1
                 # player selects which die to use a plus one
                 # select die
@@ -101,24 +113,24 @@ class Game:
                     # TODO: cast str selected_die into enum value
                     selected_die_enum_value = COLORS.pink
                     # TODO: find where the selected die is
-                        # TODO: check platter
-                        # TODO: check selected_die_list
+                    # TODO: check platter
+                    # TODO: check selected_die_list
                     # TODO: check whether selection is valid with their player board
                     has_selected = True
-            elif player_plus_one == 'n':
+            elif player_plus_one == "n":
                 break
             else:
                 pass
-    
+
     def do_platter_select(self, player):
         raise NotImplemented
-  
-  # TODO: decide whether or not to just use the self.active_player instead of passing it in as an argument
-    def take_turn(self, active_player): 
+
+    # TODO: decide whether or not to just use the self.active_player instead of passing it in as an argument
+    def take_turn(self, active_player):
         """A single active player's turn"""
         print(f"Starting {get_name(active_player)}'s turn!")
         while len(get_list(selected_die_list)) < 4 and len(get_list(self.field)) > 0:
-            # start of first turn, player rolls to generate self.field. 
+            # start of first turn, player rolls to generate self.field.
             new_roll = dielist(COLORS)
             self.field = new_roll
             print(self.field)
@@ -128,7 +140,7 @@ class Game:
 
             # select die
             has_selected = False
-          
+
             while not has_selected:
                 selected_die_string = input("Which die would you like to select?")
                 # TODO: Check that color exists in self.field first
@@ -141,8 +153,12 @@ class Game:
                 else:
                     continue
 
-            while not get_lower_value_die(self.field, chosen_die) is None: # if is not lowest value die
-                lower_value_die = self.field.get_lower_value_die(chosen_die) # move all lower val die to platter
+            while (
+                not get_lower_value_die(self.field, chosen_die) is None
+            ):  # if is not lowest value die
+                lower_value_die = self.field.get_lower_value_die(
+                    chosen_die
+                )  # move all lower val die to platter
                 self.field.remove_die(lower_value_die)
                 self.platter.add_die(lower_value_die)
 
@@ -158,20 +174,23 @@ class Game:
         for player in self.player_order:
             plus_one_check(self, player)
 
-        # Return dice to field 
+        # Return dice to field
         self.selected_die_list = DiceList()
         self.platter = DiceList()
 
         # Increment the active player
         self.active_player_number += 1
-        self.active_player = self.player_order[self.active_player_number % len(self.player_order)]  
+        self.active_player = self.player_order[
+            self.active_player_number % len(self.player_order)
+        ]
+
 
 if __name__ == "__main__":
-    paul = Player('Paul')
-    nayeon = Player('Nayeon')
+    paul = Player("Paul")
+    nayeon = Player("Nayeon")
     game = Game([paul, nayeon])
     while not is_over(game):
         game.is_over = True
-  #  next_action(game)
+#  next_action(game)
 # a_single_roll_of_all_colors = DiceList([list(COLORS)])
 # reroll_pink = DiceList([COLORS.pink])
