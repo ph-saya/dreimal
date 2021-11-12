@@ -19,7 +19,7 @@ class Board:
             
         
 class Player:
-	def __init__(self, name: str):
+    def __init__(self, name: str):
         self.name = name
         self.score = 0 
         self.fox_count = 0
