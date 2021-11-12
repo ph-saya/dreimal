@@ -7,9 +7,15 @@ ACTIONS = Enum("player_actions", "")
 class Board:
     def __init__(self):
         self.pink_list = []
+        self.blue_list = []
         #TODO: add others
+    
     def add_to_list(self, die):
-        self.pink_list.append(die)
+        if (get_color(die) == COLORS.pink)
+            self.pink_list.append(die)
+        elif (get_color(die) == COLORS.blue)
+            self.blue_list.append(die)
+            
         
 class Player:
 	def __init__(self, name: str):
@@ -39,11 +45,15 @@ class Player:
     def add_black_score(self, die):
         raise NotImplemented
     def add_blue_score(self, die):
-        raise NotImplemented
+        add_to_list(self.board, die)
+        
+        blue_index = len(self.board.blue_list)
+    
     def add_pink_score(self, die):
+        add_to_list(self.board, die)
+        
         die_value = get_number(die)
         self.score += die_value
-        add_to_list(self.board, die)
         
         pink_index = len(self.board.pink_list)
         if pink_index > 2:
