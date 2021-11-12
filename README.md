@@ -4,7 +4,15 @@
 $ git clone ...
 ```
 
+```
+$ pip install -r requirements.txt
+```
+
 ... make changes ...
+
+```
+$ black <changed files>
+```
 
 When you wish to update,
 
