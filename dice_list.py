@@ -1,7 +1,9 @@
 from draft_0 import Die
 
-class DiceList: # [Die1, Die2, Die 3...]
+
+class DiceList:  # [Die1, Die2, Die 3...]
     """Representation of any collection of dice"""
+
     def __init__(self, colors=None):
         if colors is None:
             colors = []
@@ -25,7 +27,7 @@ class DiceList: # [Die1, Die2, Die 3...]
                     self.remove_die(die)
                     return Die(color, number)
         else:
-            print('This die is not present')
+            print("This die is not present")
             return None
 
     def get_lower_value_die(self, die):
@@ -50,12 +52,16 @@ class DiceList: # [Die1, Die2, Die 3...]
             self.colors.remove(die.get_color())
             temp = []
             for die_in_list in self.list:
-                if die.get_color() == die_in_list.get_color() and die.get_value() == die_in_list.get_value():
+                if (
+                    die.get_color() == die_in_list.get_color()
+                    and die.get_value() == die_in_list.get_value()
+                ):
                     continue
                 temp.append(die_in_list)
             self.list = temp
 
     def __repr__(self):
         return f"{list(self.list)}"
+
     def __str__(self):
         return f"{str([str(die)+', ' for die in self.list])}"
