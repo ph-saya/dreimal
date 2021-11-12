@@ -4,7 +4,7 @@ from enum import Enum
 COLORS = Enum("colors", "pink green yellow blue white black")
 ACTIONS = Enum("player_actions", "")
 
-class Board():
+class Board:
     def __init__(self):
         self.pink_list = []
         #TODO: add others
@@ -12,7 +12,7 @@ class Board():
         self.pink_list.append(die)
         
         
-class Player():
+class Player:
 	def __init__(self, name: str):
         self.name = name
         self.score = 0 
@@ -69,32 +69,27 @@ class Player():
             if  pink_index == 11 and die_value > 4:
                 blue_die_value = input("select blue die value between 1-6")
                 add_blue_score(self, Die(COLORS.blue,int(blue_die_value)))
-            
-            
-                
-                
-
   
-class Game():
-  def __init(self, playerList):
-    if len(playerList) > 4 or len(playerList) < 1:     
-    	raise Exception(f"Player count is wrong! {len(playerList)} players were input. Please input between 1 and 4 players.")
-    self.is_over = False   
+class Game:
+    def __init(self, playerList):
+        if len(playerList) > 4 or len(playerList) < 1:     
+            raise Exception(f"Player count is wrong! {len(playerList)} players were input. Please input between 1 and 4 players.")
+        self.is_over = False   
+
+        #run chwazi = generate ordered list
+        self.player_order = random.shuffle(playerList) 
+        print(f"Order of player is: {[get_name(player) for player in self.player_order]}")
+
+        self.active_player_number = 0
+        self.active_player = self.player_order[self.active_player_number]
+        print(f"First player is: {self.active_player}")
+
+        self.platter = DiceList()
+        self.selected_die_list = DiceList()
+            self.field = DiceList()
     
-    #run chwazi = generate ordered list
-    self.player_order = random.shuffle(playerList) 
-    print(f"Order of player is: {[get_name(player) for player in self.player_order]}")
-    
-    self.active_player_number = 0
-    self.active_player = self.player_order[self.active_player_number]
-    print(f"First player is: {self.active_player}")
-    
-    self.platter = DiceList()
-    self.selected_die_list = DiceList()
-		self.field = DiceList()
-    
-  def is_over(self):
-    return self.is_over
+      def is_over(self):
+        return self.is_over
   
   def reroll_check(self, active_player):
 		while get_reroll_count(active_player) > 0:
@@ -201,7 +196,7 @@ class Game():
 # at end of turn, player may decide to plus_one on any die in platter or field
 
   
-class Die():
+class Die:
 	def __init__(self, color, number=None):
 		# TODO validate color
 		self.color = color
@@ -219,7 +214,7 @@ class Die():
   def __str__(self):
     return f"{self.color}: {self.number}"
 
-class DiceList(): # [Die1, Die2, Die 3...]
+class DiceList: # [Die1, Die2, Die 3...]
 	def __init__(self, colors=[]):
     self.colors = set(colors)
 		self.list = [Die(color) for color in self.list_colors]
