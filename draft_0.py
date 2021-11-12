@@ -41,12 +41,12 @@ class Game:
         self.selected_die_list = DiceList()
         self.field = DiceList()
     
-      def is_over(self):
+    def is_over(self):
         return self.is_over
   
-  def reroll_check(self, active_player):
+    def reroll_check(self, active_player):
         while get_reroll_count(active_player) > 0:
-			print(f"{get_name(active_player)} you have {get_reroll_count(active_player)} rerolls left") 
+	    print(f"{get_name(active_player)} you have {get_reroll_count(active_player)} rerolls left") 
             player_reroll = input("Want to reroll? y/n")
             if player_reroll == 'y':
                 active_player.reroll_count -= 1

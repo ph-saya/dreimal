@@ -1,5 +1,4 @@
-import random
-
+"""player.py"""
 from enum import Enum
 
 from draft_0 import Board, COLORS, Die
@@ -7,32 +6,39 @@ from draft_0 import Board, COLORS, Die
 ACTIONS = Enum("player_actions", "")
 
 class Player:
+    """Player class"""
     def __init__(self, name: str):
         self.name = name
-        self.score = 0 
+        self.score = 0
         self.fox_count = 0
         self.reroll_count = 0
         self.putback_count = 0
         self.plus_one_count = 0
         self.selected_die_count = 0
         self.board = Board()
-         
+
     def get_name(self):
+        """Returns name of player"""
         return self.name
 
     def get_reroll_count(self):
+        """Returns number of times player may reroll all dice"""
         return self.reroll_count
 
     def get_putback_count(self):
+        """Returns name of player"""
         return self.putback_count
 
     # SCORING
     def add_yellow_score(self, die):
-        raise NotImplemented
+        """TODO"""
+        raise NotImplementedError
     def add_black_score(self, die):
-        raise NotImplemented
+        """TODO"""
+        raise NotImplementedError
     def add_green_score(self, die):
-        add_to_list(self.board, die) #"mark" on scoring sheet
+        """Simulate scoring a green die on a player's scoring mat"""
+        Board.add_to_list(self.board, die) #"mark" on scoring sheet
         green_index = len(self.board.green_list) #includes new input
 
         if (green_index % 2) == 0: #if even numbered index, ready to score
@@ -47,15 +53,15 @@ class Player:
                 self.score += diff
             elif (green_index==4):
                 blue_die_value = input("select blue die value between 1-6")
-                add_blue_score(self, Die(COLORS.blue,int(blue_die_value)))
+                self.add_blue_score(Die(COLORS.blue,int(blue_die_value)))
                 diff = (2*previous_die_value)-(1*current_die_value)
                 self.score += diff
-            elif (green_index==6):
+            elif green_index==6:
                 diff = (3*previous_die_value)-(3*current_die_value)
                 self.score += diff
-            elif (green_index==8):
+            elif green_index == 8:
                 black_die_value = input("select black die value between 1-6")
-                add_black_score(self, Die(COLORS.black,int(black_die_value)))
+                self.add_black_score(Die(COLORS.black,int(black_die_value)))
                 diff = (3*previous_die_value)-(2*current_die_value)
                 self.score += diff
             elif (green_index==10):
@@ -78,6 +84,7 @@ class Player:
                 add_pink_score(self, Die(COLORS.pink,int(pink_die_value)))
 
     def add_blue_score(self, die):
+        """Simulate scoring a blue die on a player's scoring mat"""
         add_to_list(self.board, die) #"mark" on scoring sheet
         blue_index = len(self.board.blue_list) #includes new input
         self.score += blue_index
@@ -100,6 +107,7 @@ class Player:
             add_green_score(self, Die(COLORS.green,int(green_die_value)))
     
     def add_pink_score(self, die):
+        """Simulate scoring a pink die on a player's scoring mat"""
         add_to_list(self.board, die)
         
         die_value = Die.get_number(die)
