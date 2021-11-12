@@ -7,22 +7,7 @@ from player import Player, ACTIONS
 
 COLORS = Enum("colors", "pink green yellow blue white black")
 
-class Board:
-    def __init__(self):
-        self.pink_list = []
-        self.blue_list = []
-        self.green_list = []
-        #TODO: add others
-    
-    # Equivalent to marking on the scoring sheet (die value for now)
-    def add_to_list(self, die):
-        if (get_color(die) == COLORS.pink):
-            self.pink_list.append(get_number(die))
-        elif (get_color(die) == COLORS.blue):
-            self.blue_list.append(die)
-        elif (get_color(die) == COLORS.green):
-            self.green_list.append(die)
-        
+
 class Game:
     def __init(self, playerList):
         if len(playerList) > 4 or len(playerList) < 1:     
