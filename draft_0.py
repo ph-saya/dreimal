@@ -47,7 +47,7 @@ class Game:
   
     def reroll_check(self, active_player):
         while get_reroll_count(active_player) > 0:
-	    print(f"{get_name(active_player)} you have {get_reroll_count(active_player)} rerolls left") 
+            print(f"{get_name(active_player)} you have {get_reroll_count(active_player)} rerolls left")
             player_reroll = input("Want to reroll? y/n")
             if player_reroll == 'y':
                 active_player.reroll_count -= 1
@@ -62,27 +62,27 @@ class Game:
     def putback_check(self, active_player):
         while get_putback_count(active_player) > 0 and len(get_list(self.platter)) > 0:
             print(f"{get_name(active_player)} you have {get_putback_count(active_player)} putbacks left")
-    		player_putback = input("Want to putback? y/n")
+            player_putback = input("Want to putback? y/n")
             if player_putback == 'y':
                 active_player.putback_count -= 1
-            # player selects which die to putback from platter
-            # select die
-            has_selected = False
-            while not has_selected:
-                selected_die_string = input("Which die would you like to select?")
-                # TODO: Check that color exists in self.field first
-                # TODO: cast str selected_die into enum value
-                selected_die_enum_value = COLORS.pink
-                chosen_die = pop_die(self.platter, selected_die_enum_value)
-                if chosen_die is not None:
-                    add_die(self.field, chosen_die)
-                    has_selected = True
-                else:
-                    continue
-        elif player_reroll == 'n':
-            break
-        else:
-            pass
+                # player selects which die to putback from platter
+                # select die
+                has_selected = False
+                while not has_selected:
+                    selected_die_string = input("Which die would you like to select?")
+                    # TODO: Check that color exists in self.field first
+                    # TODO: cast str selected_die into enum value
+                    selected_die_enum_value = COLORS.pink
+                    chosen_die = self.platter.pop_die(selected_die_enum_value)
+                    if chosen_die is not None:
+                        self.field.add_die(chosen_die)
+                        has_selected = True
+                    else:
+                        continue
+            elif player_putback == 'n':
+                break
+            else:
+                pass
   
     def plus_one_check(self, player):
         while get_plus_one_count(active_player) > 0:
@@ -142,12 +142,12 @@ class Game:
                     continue
 
             while not get_lower_value_die(self.field, chosen_die) is None: # if is not lowest value die
-                lower_value_die = get_lower_value_die(self.field, chosen_die) # move all lower val die to platter
-                remove_die(self.field, lower_value_die)
-                add_die(self.platter, lower_value_die)
+                lower_value_die = self.field.get_lower_value_die(chosen_die) # move all lower val die to platter
+                self.field.remove_die(lower_value_die)
+                self.platter.add_die(lower_value_die)
 
-          # after each selection, a player may put back any die that have been moved to the platter if able.
-          putback_check(self, active_player)
+        # after each selection, a player may put back any die that have been moved to the platter if able.
+        putback_check(self, active_player)
 
         # Passive players select die from center
         for player in self.player_order:
@@ -160,7 +160,7 @@ class Game:
 
         # Return dice to field 
         self.selected_die_list = DiceList()
-            self.platter = DiceList()
+        self.platter = DiceList()
 
         # Increment the active player
         self.active_player_number += 1
@@ -169,7 +169,7 @@ class Game:
 if __name__ == "__main__":
     paul = Player('Paul')
     nayeon = Player('Nayeon')
-	game = Game([paul, nayeon])
+    game = Game([paul, nayeon])
     while not is_over(game):
         game.is_over = True
   #  next_action(game)
