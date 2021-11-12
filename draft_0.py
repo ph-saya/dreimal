@@ -121,13 +121,13 @@ class Game:
                 pass
 
     def putback_check(self, active_player):
-    while get_putback_count(active_player) > 0 and len(get_list(self.platter)) > 0:
-				print(f"{get_name(active_player)} you have {get_putback_count(active_player)} putbacks left") 
+        while get_putback_count(active_player) > 0 and len(get_list(self.platter)) > 0:
+            print(f"{get_name(active_player)} you have {get_putback_count(active_player)} putbacks left")
     		player_putback = input("Want to putback? y/n")
-        if player_putback == 'y':
-            active_player.putback_count -= 1
-          # player selects which die to putback from platter 
-          # select die
+            if player_putback == 'y':
+                active_player.putback_count -= 1
+            # player selects which die to putback from platter
+            # select die
             has_selected = False
             while not has_selected:
                 selected_die_string = input("Which die would you like to select?")
