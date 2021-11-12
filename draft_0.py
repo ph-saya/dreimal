@@ -101,7 +101,7 @@ class Game:
 
         self.platter = DiceList()
         self.selected_die_list = DiceList()
-            self.field = DiceList()
+        self.field = DiceList()
     
       def is_over(self):
         return self.is_over
@@ -146,7 +146,30 @@ class Game:
             pass
   
     def plus_one_check(self, player):
-        raise NotImplemented
+        while get_plus_one_count(active_player) > 0:
+            print(f"{get_name(active_player)} you have {get_plus_one_count(active_player)} +1s left.")
+            player_plus_one = input("Do you want to use a +1? y/n")
+            if player_plust_one == 'y':
+                active_player.plus_one_count -= 1
+                # player selects which die to use a plus one
+                # select die
+                has_selected = False
+                while not has_selected:
+                    print(self.platter)
+                    print(self.selected_die_list)
+                    selected_die_string = input("Which die would you like to select?")
+                    # TODO: Check that color exists in self.field first
+                    # TODO: cast str selected_die into enum value
+                    selected_die_enum_value = COLORS.pink
+                    # TODO: find where the selected die is
+                        # TODO: check platter
+                        # TODO: check selected_die_list
+                    # TODO: check whether selection is valid with their player board
+                    has_selected = True
+            elif player_plus_one == 'n':
+                break
+            else:
+                pass
     
     def do_platter_select(self, player):
         raise NotImplemented
