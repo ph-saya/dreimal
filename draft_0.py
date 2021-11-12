@@ -4,24 +4,76 @@ from enum import Enum
 COLORS = Enum("colors", "pink green yellow blue white black")
 ACTIONS = Enum("player_actions", "")
 
+class Board():
+    def __init__(self):
+        self.pink_list = []
+        #TODO: add others
+    def add_to_list(self, die):
+        self.pink_list.append(die)
+        
+        
 class Player():
 	def __init__(self, name: str):
-    self.name = name
-    self.score = 0; 
-    self.reroll_count = 0;
-		self.putback_count = 0;
-		self.plus_one_count = 0;
-    self.selected_die_count = 0;
-  	pass
+        self.name = name
+        self.score = 0 
+        self.fox_count = 0
+        self.reroll_count = 0
+        self.putback_count = 0
+        self.plus_one_count = 0
+        self.selected_die_count = 0
+        self.board = Board()
          
-  def get_name(self):
-    return self.name
-  
-  def get_reroll_count(self):
-    return self.reroll_count
-  
-  def get_putback_count(self):
-    return self.putback_count
+    def get_name(self):
+        return self.name
+
+    def get_reroll_count(self):
+        return self.reroll_count
+
+    def get_putback_count(self):
+        return self.putback_count
+    
+    def add_green_score(self, die):
+        raise NotImplemented
+        
+    def add_yellow_score(self, die):
+        raise NotImplemented
+    def add_black_score(self, die):
+        raise NotImplemented
+    def add_blue_score(self, die):
+        raise NotImplemented
+        
+    def add_pink_score(self, die):
+        die_value = get_number(die)
+        self.score += die_value
+        add_to_list(self.board, die)
+        
+        pink_index = len(self.board.pink_list)
+        if pink_index > 2:
+            if (pink_index == 3 and die_value > 1) or (pink_index == 10 and die_value > 3):
+                self.reroll_count += 1
+            if pink_index == 4 and die_value > 2:
+                self.putback_count += 1
+            if pink_index == 5 and die_value > 3:
+                self.plus_one_count += 1    
+            if pink_index == 6 and die_value > 4:
+                green_die_value = input("select green die value between 1-6")
+                add_green_score(self, Die(COLORS.green,int(green_die_value)))
+            if (pink_index == 7 and die_value > 5) or (pink_index == 12 and die_value > 5):
+                yellow_die_value = input("select yellow die value between 1-6")
+                add_yellow_score(self, Die(COLORS.yellow,int(yellow_die_value)))
+            if pink_index == 8 and die_value > 1:
+                self.fox_count += 1
+            if pink_index == 9 and die_value > 2:
+                black_die_value = input("select black die value between 1-6")
+                add_black_score(self, Die(COLORS.black,int(black_die_value)))
+            if  pink_index == 11 and die_value > 4:
+                blue_die_value = input("select blue die value between 1-6")
+                add_blue_score(self, Die(COLORS.blue,int(blue_die_value)))
+            
+            
+                
+                
+
   
 class Game():
   def __init(self, playerList):
