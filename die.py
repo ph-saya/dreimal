@@ -19,7 +19,7 @@ class Die:
         return self.color
 
     def __repr__(self):
-        return f"{self.color}: {self.number}"
+        return f"""|‾‾‾‾|\n| {self.number}  | {self.color}\n|____|"""
 
     def __str__(self):
-        return f"{self.color}: {self.number}"
+        return f"""|‾‾‾‾|\n| {self.number}  | {self.color}\n|____|"""
